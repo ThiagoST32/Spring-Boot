@@ -1,7 +1,8 @@
 package cursospringboot.example.cursospringbootjava.models;
 
+import cursospringboot.example.cursospringbootjava.models.task;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import jakarta.validation.constraints.Size;
 import org.springframework.scheduling.config.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -41,9 +43,16 @@ public class User {
     @Size(groups = {CreateUser.class, UpdateUser.class}, min = 8, max = 60)
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    private List<task> tasks = new ArrayList<task>();
 
-//    private List<Task> tasks = new ArrayList<Task>();
+    public List<task> getTasks() {
+        return tasks;
+    }
 
+    public void setTasks(List<task> tasks) {
+        this.tasks = tasks;
+    }
 
     public User() {
     }
