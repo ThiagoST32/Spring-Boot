@@ -16,8 +16,6 @@ public class UserService {
     @Autowired
     private UserReposetery userReposetery;
 
-    @Autowired
-    private TaskRepository taskRepository;
 
 
     public User findById(Long id) {
@@ -30,7 +28,6 @@ public class UserService {
     public User create(User obj){
         obj.setId(null);
         obj = this.userReposetery.save(obj);
-        this.taskRepository.saveAll(obj.getTasks());
         return obj;
 
     }
