@@ -1,13 +1,12 @@
 package cursospringboot.example.cursospringbootjava.services;
 
 import cursospringboot.example.cursospringbootjava.models.User;
-import cursospringboot.example.cursospringbootjava.repositories.TaskRepository;
 import cursospringboot.example.cursospringbootjava.repositories.UserReposetery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.management.RuntimeErrorException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,15 +17,19 @@ public class UserService {
 
 
 
-    public User findById(Long id) {
+    public User findById(int id) {
         Optional<User> user = this.userReposetery.findById(id);
         return user.orElseThrow(() -> new RuntimeException(
                 "Usuario não encontrado! id: " + id + ", tipo: " + User.class.getName()));
     }
 
+    public List<User> getAllUsers(){
+        return this.userReposetery.findAll();
+    }
+
     @Transactional
     public User create(User obj){
-        obj.setId(null);
+        obj.setId(0);
         obj = this.userReposetery.save(obj);
         return obj;
 
@@ -39,11 +42,11 @@ public class UserService {
         return this.userReposetery.save(newObj);
     }
 
-    public void delete(Long id){
+    public void delete(int id) {
         findById(id);
-        try{
+        try {
             this.userReposetery.deleteById(id);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Não é possivel excluir pos há entidades relacionadas");
         }
     }

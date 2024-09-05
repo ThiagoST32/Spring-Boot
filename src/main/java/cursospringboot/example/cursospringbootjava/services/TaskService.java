@@ -20,7 +20,7 @@ public class TaskService {
     private UserService userService;
 
     @Transactional
-    public task findById(Long id){
+    public task findById(int id){
         Optional<task> task = this.taskRepository.findById(id);
         return task.orElseThrow(() -> new RuntimeException("Tarefa não encontrada! Id: " + id + ", Tipo: "+ Task.class.getName()));
     }
@@ -43,7 +43,7 @@ public class TaskService {
 
     }
 
-    public void delete (Long id){
+    public void delete (int id){
         findById(id);
         try {
 

@@ -9,7 +9,6 @@ public class CursoSpringBootJavaApplication {
 	public static void main(String[] args) {
 		System.out.println("Inciando Spring!!!");
 		SpringApplication.run(CursoSpringBootJavaApplication.class, args);
-
 	}
 
 }
